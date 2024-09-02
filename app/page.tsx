@@ -1,12 +1,20 @@
 import { Wrapper } from "@/components/Wrapper";
-import { Greeting } from "@/components/Greeting";
-
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 const Home = () => {
   return (
-    <main>
-      <Wrapper>
-        <Greeting />
-      </Wrapper>
+    <main >
+      <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center mb-10">
+          <h1 className="text-4xl font-bold text-center text-gray-900">
+            Welcome to Deel
+          </h1>
+        </div>
+        <div className="flex flex-row justify-center items-center gap-6">
+          <Button className="rounded-lg bg-emerald-900 hover:bg-emerald-700"><Link href={"/"}>I am looking to hire</Link></Button>
+          <Button className="rounded-lg bg-emerald-900  hover:bg-emerald-700"><Link href={"/"}>I want to offer Pro services</Link></Button>
+        </div>
+      </div>
     </main>
   );
 };
