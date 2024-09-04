@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,8 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
 
 export default function Post() {
+  const router = useRouter()
   return (
     <div className="flex flex-col items-center justify-center">
       {" "}
@@ -83,7 +87,9 @@ export default function Post() {
           </form>
         </CardContent>
         <CardFooter className="flex justify-between">
-          <Button variant="outline">Cancel</Button>
+          <Button onClick={() => router.push("/")} variant="outline">
+            Cancel
+          </Button>
           <Button>Post</Button>
         </CardFooter>
       </Card>
