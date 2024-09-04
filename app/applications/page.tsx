@@ -14,14 +14,35 @@ export default function Applications() {
     },
     // Add more job posts as needed
   ]
+
+  const applicants = [
+    {
+      name: "John Doe",
+      skills: "programming, design, figma",
+    },
+    // Add more job posts as needed
+  ]
   return (
     <div className="container mx-auto px-4 py-8">
-      <div>
+      <>
         {applicantview ? (
-          <div></div>
+          <div>
+            {applicants.map((applicant, index) => (
+              <div
+                className="mt-10 mb-4 bg-white rounded-lg p-4 shadow w-[500px]"
+                key={index}
+              >
+                <h2 className="text-xl font-bold mb-2">{applicant.name}</h2>
+                <p>{applicant.skills}</p>
+                <Button className="mt-5 rounded-lg bg-emerald-900 hover:bg-emerald-700">
+                  Hire
+                </Button>
+              </div>
+            ))}
+          </div>
         ) : (
           <>
-            <p>Your outstanding job applications</p>
+            <p>Your outstanding job listings</p>
             {jobListings.map((job, index) => (
               <div
                 key={index}
@@ -40,7 +61,7 @@ export default function Applications() {
             ))}
           </>
         )}
-      </div>
+      </>
     </div>
   )
 }
