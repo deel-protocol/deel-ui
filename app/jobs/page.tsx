@@ -1,4 +1,5 @@
 import React from "react"
+import { Button } from "@/components/ui/button"
 
 const page = () => {
   // Sample data for job posts
@@ -30,6 +31,9 @@ const page = () => {
           <p className="mb-2">Price: {job.price}</p>
           <p className="mb-2">Posted by: {job.poster}</p>
           <p className="mb-2">Time Period: {job.timePeriod}</p>
+          <Button className="rounded-lg bg-emerald-900 hover:bg-emerald-700">
+            Apply
+          </Button>
           <hr className="my-4" />
         </div>
       ))}
