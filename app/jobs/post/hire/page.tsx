@@ -53,7 +53,10 @@ export default function Post() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="description">Description</Label>
-                <Input id="description" placeholder="Name of your project" />
+                <Input
+                  id="description"
+                  placeholder="Enter the Job Description"
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="fee">Gas Fee Address</Label>
