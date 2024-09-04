@@ -19,13 +19,18 @@ const Home = () => {
         <div className="flex flex-row justify-center items-center gap-6">
           <Button
             onClick={() => {
-              router.push("/jobs/post")
+              router.push("/jobs/post/hire")
             }}
             className="rounded-lg bg-emerald-900 hover:bg-emerald-700"
           >
             <Link href={"/"}>I am looking to hire</Link>
           </Button>
-          <Button className="rounded-lg bg-emerald-900  hover:bg-emerald-700">
+          <Button
+            onClick={() => {
+              router.push("/jobs/post/offer")
+            }}
+            className="rounded-lg bg-emerald-900  hover:bg-emerald-700"
+          >
             <Link href={"/"}>I want to offer Pro services</Link>
           </Button>
         </div>

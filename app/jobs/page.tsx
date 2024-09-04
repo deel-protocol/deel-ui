@@ -1,24 +1,24 @@
-import React from 'react';
+import React from "react"
 
 const page = () => {
   // Sample data for job posts
   const jobPosts = [
     {
-      title: 'Job 1',
-      description: 'This is the description for Job 1',
-      price: '$100',
-      poster: 'John Doe',
-      timePeriod: '1 month',
+      title: "Job 1",
+      description: "This is the description for Job 1",
+      price: "$100",
+      poster: "John Doe",
+      timePeriod: "1 month",
     },
     {
-      title: 'Job 2',
-      description: 'This is the description for Job 2',
-      price: '$200',
-      poster: 'Jane Smith',
-      timePeriod: '2 weeks',
+      title: "Job 2",
+      description: "This is the description for Job 2",
+      price: "$200",
+      poster: "Jane Smith",
+      timePeriod: "2 weeks",
     },
     // Add more job posts as needed
-  ];
+  ]
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -34,7 +34,7 @@ const page = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default page;
+export default page

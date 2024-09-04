@@ -52,22 +52,29 @@ export default function Post() {
                 </Select>
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Name of your project" />
+                <Label htmlFor="description">Description</Label>
+                <Input id="description" placeholder="Name of your project" />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Framework</Label>
-                <Select>
-                  <SelectTrigger id="framework">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="next">Next.js</SelectItem>
-                    <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                    <SelectItem value="astro">Astro</SelectItem>
-                    <SelectItem value="nuxt">Nuxt.js</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="fee">Gas Fee Address</Label>
+                <Input
+                  id="fee"
+                  placeholder="Enter the Address to pay Gas fees "
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="payment">Payment Adress</Label>
+                <Input
+                  id="payment"
+                  placeholder="Enter the Address to send the payment from "
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="pricing">Pricing</Label>
+                <Input
+                  id="pricing"
+                  placeholder="Enter the pricing for this job"
+                />
               </div>
             </div>
           </form>
