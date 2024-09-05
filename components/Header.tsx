@@ -3,9 +3,11 @@ import { ConnectButton } from "@rainbow-me/rainbowkit"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useUserContext } from "./Usercontext"
 
 const Header = () => {
   const pathname = usePathname()
+  const { user } = useUserContext()
 
   return (
     <header className="py-4 w-full px-24 mb-0 flex items-center justify-between z-10 bg-gradient-to-b from-white via-white to-transparent">
@@ -20,7 +22,7 @@ const Header = () => {
           href="/kyc"
           className={` ${pathname === "/kyc" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
         >
-          KYC
+          {user}
         </Link>
         <Link
           href="/jobs"
