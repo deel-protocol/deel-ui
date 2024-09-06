@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useUserContext } from "@/components/Usercontext"
+import { AuroraBackground } from "@/components/aurora-background"
 
 const Home = () => {
   const router = useRouter()
-
-  const { user, setUser } = useUserContext() // Access the state and handler
+  const { user, setUser } = useUserContext()
 
   return (
+    <AuroraBackground>
     <main>
       <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-center mb-10">
@@ -41,6 +42,7 @@ const Home = () => {
         </div>
       </div>
     </main>
+    </AuroraBackground>
   )
 }
 

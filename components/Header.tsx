@@ -1,6 +1,5 @@
 "use client"
-import { ConnectButton } from "@rainbow-me/rainbowkit"
-
+import { Connect } from "./Connect"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useUserContext } from "./Usercontext"
@@ -10,7 +9,7 @@ const Header = () => {
   const { user } = useUserContext()
 
   return (
-    <header className="py-4 w-full px-24 mb-0 flex items-center justify-between z-10 bg-gradient-to-b from-white via-white to-transparent">
+    <header className={`py-4 w-full px-24 mb-0 flex items-center justify-between z-10 ${pathname=== "/" || pathname === "/home" ? "fixed top-0": ""} bg-gradient-to-b from-white via-white to-transparent`}>
       <div className="flex justify-center items-center gap-6">
         <Link
           href="/"
@@ -38,11 +37,7 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <ConnectButton
-          showBalance={false}
-          accountStatus="address"
-          label="Connect"
-        />
+        <Connect />
       </div>
     </header>
   )
