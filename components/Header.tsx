@@ -2,7 +2,7 @@
 import { Connect } from "./Connect"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useUserContext } from "./Usercontext"
+import { useUserContext } from "@/hooks/useUserContext"
 
 const Header = () => {
   const pathname = usePathname()
@@ -21,7 +21,6 @@ const Header = () => {
           href="/kyc"
           className={` ${pathname === "/kyc" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
         >
-          {user}
         </Link>
         <Link
           href="/jobs"
@@ -29,12 +28,19 @@ const Header = () => {
         >
           Jobs
         </Link>
-        <Link
-          href="/applications"
-          className={` ${pathname === "/applications" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
+        {user === "poster" && (<Link
+          href="/my-listings"
+          className={` ${pathname === "/my-listings" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
         >
-          Applications
-        </Link>
+          My Listings
+        </Link>)}
+        {user === "applier" && (<Link
+          href="/my-applications"
+          className={` ${pathname === "/my-applications" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
+        >
+          My Applications
+        </Link>)}
+
       </div>
       <div>
         <Connect />

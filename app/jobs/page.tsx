@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,9 +12,13 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useUserContext } from "@/hooks/useUserContext"
 
-const page = () => {
+const Page = () => {
   // Sample data for job posts
+
+  const { user } = useUserContext()
+
   const jobPosts = [
     {
       title: "Job 1",
@@ -43,12 +48,12 @@ const page = () => {
             <p className="mb-2">Price: {job.price}</p>
             <p className="mb-2">Posted by: {job.poster}</p>
             <p className="mb-2">Time Period: {job.timePeriod}</p>
-            <DialogTrigger asChild>
+            {user === "applier" && (
+              <DialogTrigger asChild>
               <Button className="rounded-lg bg-emerald-900 hover:bg-emerald-700">
                 Apply
               </Button>
-            </DialogTrigger>
-            <hr className="my-4" />
+            </DialogTrigger>)}
           </div>
         ))}
         <DialogContent className="sm:max-w-[425px]">
@@ -80,4 +85,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

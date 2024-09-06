@@ -1,10 +1,9 @@
 "use client"
 
-import { Wrapper } from "@/components/Wrapper"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useUserContext } from "@/components/Usercontext"
+import { useUserContext } from "@/hooks/useUserContext"
 import { AuroraBackground } from "@/components/aurora-background"
 
 const Home = () => {
@@ -23,7 +22,7 @@ const Home = () => {
         <div className="flex flex-row justify-center items-center gap-6">
           <Button
             onClick={() => {
-              router.push("/jobs/post/hire")
+              router.push("/jobs/post/new")
               setUser("poster")
             }}
             className="rounded-lg bg-emerald-900 hover:bg-emerald-700"

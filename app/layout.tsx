@@ -9,7 +9,7 @@ import { Providers } from "@/components/Providers"
 import { Header } from "@/components/Header"
 import { ToastContainer } from "react-toastify"
 import { cn } from "@/lib/utils"
-import { UserProvider } from "@/components/Usercontext"
+import { UserProvider } from "@/hooks/useUserContext"
 
 const fontSans = FontSans({
   subsets: ["latin"],

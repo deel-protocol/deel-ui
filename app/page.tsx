@@ -1,10 +1,9 @@
 "use client"
 
-import { Wrapper } from "@/components/Wrapper"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { AuroraBackground } from "@/components/aurora-background"
+import {AuroraBackground}  from "@/components/aurora-background"
+
 const Main = () => {
   const router = useRouter()
 
