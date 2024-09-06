@@ -19,7 +19,7 @@ const Main = () => {
               {"I already have"}&nbsp;<span className="font-medium">deel ID</span>
             </Button>
             <Button
-              onClick={() => router.push("/dee-id/new")}
+              onClick={() => router.push("/deel-id/new")}
               className="rounded-lg bg-emerald-800 hover:bg-emerald-700"
             >
               {"Create a new"}&nbsp;<span className="font-medium">deel ID</span>
