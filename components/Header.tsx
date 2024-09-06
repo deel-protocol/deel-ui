@@ -13,21 +13,21 @@ const Header = () => {
       <div className="flex justify-center items-center gap-6">
         <Link
           href="/"
-          className="text-3xl md:text-xl font-bold text-emerald-500"
+          className="text-3xl md:text-2xl font-extrabold text-emerald-500"
         >
-          Deel
+          deel.
         </Link>
         <Link
           href="/kyc"
           className={` ${pathname === "/kyc" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
         >
         </Link>
-        <Link
+        {user === "poster" || user === "applier" && (<Link
           href="/jobs"
           className={` ${pathname === "/jobs" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
         >
           Jobs
-        </Link>
+        </Link>)}
         {user === "poster" && (<Link
           href="/my-listings"
           className={` ${pathname === "/my-listings" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}

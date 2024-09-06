@@ -27,11 +27,11 @@ export default function Post() {
     <div className="flex flex-col items-center justify-center">
       {" "}
       <h1 className="text-4xl font-bold text-center text-gray-900">
-        Post your Job
+        Post your<span className="text-emerald-600">{" deel."}</span> 
       </h1>
-      <Card className="w-[350px] mt-32">
+      <Card className="w-[350px] mt-16">
         <CardHeader>
-          <CardTitle>Create Job Listing</CardTitle>
+          <CardTitle>Create deel Listing</CardTitle>
           <CardDescription>
             Post your job listing with one simple click
           </CardDescription>
