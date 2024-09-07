@@ -37,6 +37,12 @@ export default function Applications() {
                 <Button className="mt-5 rounded-lg bg-emerald-900 hover:bg-emerald-700">
                   Hire
                 </Button>
+                <Button className="mt-5 rounded-lg bg-blue-900 hover:bg-blue-700">
+                  Message
+                </Button>
+                <Button className="mt-5 rounded-lg bg-red-900 hover:bg-red-700">
+                  Reject
+                </Button>
               </div>
             ))}
           </div>

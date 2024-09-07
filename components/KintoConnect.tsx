@@ -43,7 +43,7 @@ const KintoConnect = () => {
   const [accountInfo, setAccountInfo] = useState<KintoAccountInfo | undefined>(undefined);
   const [kycViewerInfo, setKYCViewerInfo] = useState<any | undefined>(undefined);
 
-    const appAddress = '0x14A1EC9b43c270a61cDD89B6CbdD985935D897fE'; // Kinto smart contract address
+    const appAddress = '0x33F28C3a636B38683a38987100723f2e2d3d038e'; // Kinto smart contract address
     const kintoSDK = createKintoSDK(appAddress);
 
     async function kintoLogin() {

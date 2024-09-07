@@ -6,23 +6,45 @@ import { Textarea } from '@/components/ui/textarea';
 import { ArrowRight, ArrowLeft, CheckCircle, User, Briefcase } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import KintoConnect from '@/components/KintoConnect';
+import { useAccount } from 'wagmi';
+import axios from 'axios';
 
 const DeelIDForm = () => {
-  const [step, setStep] = useState(20); // Initial step is 20 to match your steps logic
+  const [step, setStep] = useState(20); 
   const [role, setRole] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [currentRole, setCurrentRole] = useState('');
   const [company, setCompany] = useState('');
-  const [github, setGithub] = useState('');
-  const [linkedin, setLinkedin] = useState('');
   const [proofOfWork, setProofOfWork] = useState('');
+  const [bio, setBio] = useState(''); 
+  const { address } = useAccount();
 
   const nextStep = () => setStep(step + 20);
   const prevStep = () => setStep(step - 20);
 
-  // Calculate the progress percentage based on the current step
   const progressValue = (step / 100) * 100;
+
+  const createDeelID = async () => {
+    try {
+      const data = {
+        role,
+        name,
+        email,
+        currentRole,
+        company,
+        proofOfWork,
+        bio,
+        address,
+      };
+
+      const response = await axios.post('/api/uploadToArweave', data);
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Failed to create Deel ID:', error);
+    }
+  };
 
   return (
     <div className="w-full max-w-lg mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
@@ -84,7 +106,7 @@ const DeelIDForm = () => {
         </>
       )}
 
-      {/* Step 3: Work Experience */}
+      {/* Step 3: Work Experience & Bio */}
       {step === 60 && (
         <>
           <h2 className="text-2xl font-semibold mb-6">Work Experience</h2>
@@ -101,21 +123,15 @@ const DeelIDForm = () => {
             className="mb-4"
           />
           <Input
-            placeholder="GitHub Link"
-            value={github}
-            onChange={(e) => setGithub(e.target.value)}
-            className="mb-4"
-          />
-          <Input
-            placeholder="LinkedIn Link"
-            value={linkedin}
-            onChange={(e) => setLinkedin(e.target.value)}
+            placeholder="Proof of Work Link"
+            value={proofOfWork}
+            onChange={(e) => setProofOfWork(e.target.value)}
             className="mb-4"
           />
           <Textarea
-            placeholder="Proof of Work Links"
-            value={proofOfWork}
-            onChange={(e) => setProofOfWork(e.target.value)}
+            placeholder="Brief Bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
             className="mb-4"
           />
           <div className="flex justify-between">
@@ -139,15 +155,14 @@ const DeelIDForm = () => {
             <li><strong>Email:</strong> {email}</li>
             <li><strong>Current Role:</strong> {currentRole}</li>
             <li><strong>Company:</strong> {company}</li>
-            <li><strong>GitHub:</strong> {github}</li>
-            <li><strong>LinkedIn:</strong> {linkedin}</li>
             <li><strong>Proof of Work:</strong> {proofOfWork}</li>
+            <li><strong>Bio:</strong> {bio}</li> 
           </ul>
           <div className="flex justify-between">
             <Button onClick={prevStep} >
               <ArrowLeft className="mr-2" /> Back
             </Button>
-            <Button onClick={nextStep}>
+            <Button onClick={nextStep} className='bg-emerald-800'>
               Confirm <CheckCircle className="ml-2" />
             </Button>
           </div>
