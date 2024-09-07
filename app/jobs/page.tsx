@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -12,11 +12,15 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/checkbox"
+
 import { useUserContext } from "@/hooks/useUserContext"
 import Personicon from "@/lib/personicon"
+import { Textarea } from "@/components/ui/textarea"
 
 const Page = () => {
   // Sample data for job posts
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const { user } = useUserContext()
 
@@ -66,6 +70,34 @@ const Page = () => {
           </DialogHeader>
           <div className="flex justify-center">
             <Personicon />
+          </div>
+          <div className="items-top flex flex-col justify-center space-x-2">
+            <div className="flex justify-center gap-3">
+              <Checkbox
+                onClick={() => {
+                  setIsChecked(true)
+                }}
+                id="terms1"
+              />
+              <div className="grid gap-1.5 leading-none">
+                <label
+                  onClick={() => {
+                    setIsChecked(true)
+                  }}
+                  htmlFor="terms1"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Share user Profile
+                </label>
+              </div>
+            </div>
+            {isChecked ? (
+              <div className="flex justify-center mt-10 ">
+                <Textarea placeholder="Type additional employment notes here" />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <DialogFooter>
             <Button type="submit">Apply</Button>
