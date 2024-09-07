@@ -10,6 +10,7 @@ import { Header } from "@/components/Header"
 import { ToastContainer } from "react-toastify"
 import { cn } from "@/lib/utils"
 import { UserProvider } from "@/hooks/useUserContext"
+import { XMTPProvider } from "@xmtp/react-sdk";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -31,8 +32,10 @@ export default function RootLayout({
       >
         <UserProvider>
           <Providers>
-            <Header />
-            {children}
+            <XMTPProvider>
+              <Header />
+              {children}
+            </XMTPProvider>
           </Providers>
           <ToastContainer />
         </UserProvider>
