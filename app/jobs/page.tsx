@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useUserContext } from "@/hooks/useUserContext"
+import Personicon from "@/lib/personicon"
 
 const Page = () => {
   // Sample data for job posts
@@ -50,10 +51,11 @@ const Page = () => {
             <p className="mb-2">Time Period: {job.timePeriod}</p>
             {user === "applier" && (
               <DialogTrigger asChild>
-              <Button className="rounded-lg bg-emerald-900 hover:bg-emerald-700">
-                Apply
-              </Button>
-            </DialogTrigger>)}
+                <Button className="rounded-lg bg-emerald-900 hover:bg-emerald-700">
+                  Apply
+                </Button>
+              </DialogTrigger>
+            )}
           </div>
         ))}
         <DialogContent className="sm:max-w-[425px]">
@@ -62,19 +64,8 @@ const Page = () => {
               Apply For This Job
             </DialogTitle>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" value="Pedro Duarte" className="col-span-3" />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input id="username" value="@peduarte" className="col-span-3" />
-            </div>
+          <div className="flex justify-center">
+            <Personicon />
           </div>
           <DialogFooter>
             <Button type="submit">Apply</Button>
