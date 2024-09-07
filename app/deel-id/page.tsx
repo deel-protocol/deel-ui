@@ -1,124 +1,91 @@
-'use client'
-import { useEffect, useState } from 'react';
-import { createKintoSDK, KintoAccountInfo } from 'kinto-web-sdk';
-import { Button } from '@/components/ui/button';
-import { Wrapper } from '@/components/Wrapper';
-import {
-  encodeFunctionData, Address, getContract,
-  defineChain, createPublicClient, http
-} from 'viem';
+import React from "react";
 
-import contractsJSON from '../../abi/7887.json';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useAccount } from "wagmi";
+import { Verified } from "lucide-react";
 
-interface KYCViewerInfo {
-  isIndividual: boolean;
-  isCorporate: boolean;
-  isKYC: boolean;
-  isSanctionsSafe: boolean;
-  getCountry: string;
-  getWalletOwners: Address[];
-}
+export default function Profile() {
 
-const kinto = defineChain({
-  id: 7887,
-  name: 'Kinto',
-  network: 'kinto',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://rpc.kinto-rpc.com/'],
-      webSocket: ['wss://rpc.kinto.xyz/ws'],
-    },
-  },
-  blockExplorers: {
-    default: { name: 'Explorer', url: 'https://kintoscan.io' },
-  },
-});
 
-const KintoConnect = () => {
-
-  const [accountInfo, setAccountInfo] = useState<KintoAccountInfo | undefined>(undefined);
-  const [kycViewerInfo, setKYCViewerInfo] = useState<any | undefined>(undefined);
-
-    const appAddress = '0x14A1EC9b43c270a61cDD89B6CbdD985935D897fE'; // Kinto smart contract address
-    const kintoSDK = createKintoSDK(appAddress);
-
-    async function kintoLogin() {
-    try {
-      await kintoSDK.createNewWallet();
-    } catch (error) {
-      console.error('Failed to login/signup:', error);
-    }
-  }
-
-  async function fetchAccountInfo() {
-    try {
-      setAccountInfo(await kintoSDK.connect());
-    } catch (error) {
-      console.error('Failed to fetch account info:', error);
-    }
+  const user = {
+    name: "John Doe",
+    email: "johndoe@gmail.com",
+    role: "Software Engineer",
+    company: "Google",
+    currentRole: "Frontend Developer",
+    address: "0x7427143ce72069f8D6008FA52c87f4773B9A11fa",
+    proofOfWork: "https://github.com/johndoe",
+    bio: "I'm a software engineer with 5 years of experience. I enjoy building web applications and learning new technologies.",
+    avatarUrl: "https://randomuser.me"
   };
 
-  async function fetchKYCViewerInfo() {
-    if (!accountInfo?.walletAddress) return;
+  return (
+    <div className="container mx-auto py-10">
+      <Card className="w-full max-w-3xl mx-auto">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-bold">My <span className="text-emerald-600">{" deel."}</span>  Profile</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center mb-6">
+            <Avatar className="w-24 h-24">
+              <AvatarImage src={user?.avatarUrl} alt={user?.name} />
+              <AvatarFallback>{user?.name?.charAt(0) || 'U'}</AvatarFallback>
+            </Avatar>
+            <h2 className="mt-4 text-2xl font-semibold">{user?.name || 'User Name'} <Verified className="ml-1 inline-block" /></h2>
+            <h3>Kinto KYC Verified</h3>
+            <p className="text-muted-foreground">{user?.role || 'Role'}</p>
+          </div>
 
-    const client = createPublicClient({
-      chain: kinto,
-      transport: http(),
-    });
-    const kycViewer = getContract({
-      address: contractsJSON.contracts.KYCViewer.address as Address,
-      abi: contractsJSON.contracts.KYCViewer.abi,
-      client: { public: client }
-    });
+          <Separator className="my-6" />
 
-    try {
-      const [isIndividual, isCorporate, isKYC, isSanctionsSafe, getCountry, getWalletOwners] = await Promise.all([
-        kycViewer.read.isIndividual([accountInfo.walletAddress]),
-        kycViewer.read.isCompany([accountInfo.walletAddress]),
-        kycViewer.read.isKYC([accountInfo.walletAddress]),
-        kycViewer.read.isSanctionsSafe([accountInfo.walletAddress]),
-        kycViewer.read.getCountry([accountInfo.walletAddress]),
-        kycViewer.read.getWalletOwners([accountInfo.walletAddress])
-      ]);
-
-      setKYCViewerInfo({
-        isIndividual,
-        isCorporate,
-        isKYC,
-        isSanctionsSafe,
-        getCountry,
-        getWalletOwners
-      } as KYCViewerInfo);
-    } catch (error) {
-      console.error('Failed to fetch KYC viewer info:', error);
-    }
-
-    console.log('KYCViewerInfo:', kycViewerInfo);
-  }
-
-
-  useEffect(() => {
-    fetchAccountInfo();
-  });
-
-  useEffect(() => {
-    if (accountInfo?.walletAddress) {
-      fetchKYCViewerInfo();
-    }
-  }, [accountInfo]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    return (
-      <div className='flex justify-center items-center'>
-        <Button onClick={kintoLogin}>
-          Login/Signup
-        </Button>
-      </div>
-    );
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" defaultValue={user?.name} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" defaultValue={user?.email} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="role">Role</Label>
+                <Input id="role" defaultValue={user?.role} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="company">Company</Label>
+                <Input id="company" defaultValue={user?.company} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="currentRole">Current Role</Label>
+                <Input id="currentRole" defaultValue={user?.currentRole} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="address">Wallet Address</Label>
+                <Input id="address" defaultValue={user?.address} />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="proofOfWork">Proof of Work</Label>
+              <Input id="proofOfWork" defaultValue={user?.proofOfWork} />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="bio">Bio</Label>
+              <Textarea id="bio" rows={4} defaultValue={user?.bio} />
+            </div>
+            
+            <Button type="submit" className="w-full">Save Changes</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
-
-export default KintoConnect;

@@ -3,11 +3,14 @@ import { Connect } from "./Connect"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useUserContext } from "@/hooks/useUserContext"
+import { useAccount } from "wagmi"
 
 const Header = () => {
   const pathname = usePathname()
   const { user } = useUserContext()
   console.log("current user is:", user)
+  const { address } = useAccount();
+
 
   return (
     <header
@@ -20,23 +23,19 @@ const Header = () => {
         >
           deel.
         </Link>
-        <Link
-          href="/kyc"
-          className={` ${pathname === "/kyc" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
-        ></Link>
-        {user === "poster" ||
-          (user === "applier" && (
+        {(user === "poster" ||
+          user === "applier" || address) && (
             <Link
               href="/jobs"
-              className={` ${pathname === "/jobs" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
+              className={` ${pathname === "/jobs" ? "text-emerald-500 font-bold" : "text-gray-700 font-semibold"}`}
             >
               Jobs
             </Link>
-          ))}
+          )}
         {user === "poster" && (
           <Link
             href="/my-listings"
-            className={` ${pathname === "/my-listings" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
+            className={` ${pathname === "/my-listings" ? "text-emerald-500 font-bold" : "text-gray-700 font-semibold"}`}
           >
             My Listings
           </Link>
@@ -44,22 +43,24 @@ const Header = () => {
         {user === "applier" && (
           <Link
             href="/my-applications"
-            className={` ${pathname === "/my-applications" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
+            className={` ${pathname === "/my-applications" ? "text-emerald-500 font-bold" : "text-gray-700 font-semibold"}`}
           >
             My Applications
           </Link>
         )}
-        {(user === "applier" || user === "poster") && (
-          <Link
-            href="/profile"
-            className={` ${pathname === "/profile" ? "text-blue-600 font-bold" : "text-gray-700 font-semibold"}`}
-          >
-            My Profile
-          </Link>
-        )}
       </div>
       <div>
+      <div className="flex justify-center items-center gap-4">
+        {(address) && (
+            <Link
+              href="/deel-id"
+              className={` ${pathname === "/deel-id" ? "text-emerald-500 font-bold" : "text-gray-700 font-semibold"}`}
+            >
+              My Profile
+            </Link>
+          )}
         <Connect />
+      </div>
       </div>
     </header>
   )
