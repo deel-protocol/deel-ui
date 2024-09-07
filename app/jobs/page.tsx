@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/checkbox"
+import { Checkbox } from "@/components/Checkbox"
 
 import { useUserContext } from "@/hooks/useUserContext"
 import Personicon from "@/lib/personicon"
