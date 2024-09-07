@@ -1,9 +1,13 @@
+"use client"
+
 import Personprofile from "@/lib/personprofile"
 import React from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useUserContext } from "@/hooks/useUserContext"
 
 export default function Profile() {
+  const { user } = useUserContext()
   return (
     <div className="flex flex-col justify-center">
       <div className="flex justify-center mt-5">
@@ -15,7 +19,7 @@ export default function Profile() {
       <div className="flex flex-col justify-center items-center gap-3">
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="email">Role</Label>
-          <Input type="email" id="email" />
+          <Input type="email" defaultValue="Role" id="email" />
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="email">Name</Label>
