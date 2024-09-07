@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useClient, useConversations, useSendMessage, useMessages, useStartConversation } from "@xmtp/react-sdk";
-import { createWalletClient, custom } from 'viem';
+import { useClient, useConversations, useSendMessage, useMessages, useStartConversation, CachedConversation, ContentTypeMetadata } from "@xmtp/react-sdk";
+import { createWalletClient, custom, WalletClient } from 'viem';
 import { mainnet } from 'viem/chains';
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Send } from "lucide-react";
+import { Address } from 'viem';
 
-const ChatUI = () => {
-  const [signer, setSigner] = useState(null);
-  const [peerAddress, setPeerAddress] = useState("");
+const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
+  const [signer, setSigner] = useState<null | WalletClient>();
   const [message, setMessage] = useState("");
   const { client, initialize } = useClient();
   const { conversations } = useConversations();
@@ -43,9 +43,10 @@ const ChatUI = () => {
 
   const handleSendMessage = useCallback(async () => {
     if (client && peerAddress && message) {
-      let conversation = conversations.find(c => c.peerAddress === peerAddress);
+      let conversation = conversations.find(c => c.peerAddress === peerAddress) || null;
       if (!conversation) {
-        conversation = await startConversation(peerAddress, message);
+        const newConversation = await startConversation(peerAddress, message);
+        conversation = newConversation.conversation as CachedConversation<ContentTypeMetadata>;
       }
       await sendMessage(conversation, message);
       setMessage("");
@@ -69,12 +70,7 @@ const ChatUI = () => {
         <MessageSquare className="h-6 w-6" />
       </CardHeader>
       <CardContent>
-        <Input
-          placeholder="Enter peer address"
-          value={peerAddress}
-          onChange={(e) => setPeerAddress(e.target.value)}
-          className="mb-4"
-        />
+        <p className="mb-4">Peer Address: {peerAddress}</p>
         <ScrollArea className="h-[300px] border rounded-md p-4">
           {messages.map((msg, index) => (
             <div key={index} className={`mb-2 ${msg.senderAddress === client.address ? 'text-right' : 'text-left'}`}>
