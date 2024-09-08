@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ArrowRight, ArrowLeft, CheckCircle, User, Briefcase } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import KintoConnect from '@/components/KintoConnect';
-import { useAccount } from 'wagmi';
 import axios from 'axios';
+import { useDeelProtocol } from '@/hooks/useDeelProtocol';
 
 const DeelIDForm = () => {
   const [step, setStep] = useState(20); 
@@ -18,12 +20,14 @@ const DeelIDForm = () => {
   const [company, setCompany] = useState('');
   const [proofOfWork, setProofOfWork] = useState('');
   const [bio, setBio] = useState(''); 
-  const { address } = useAccount();
+  const [kycOption, setKycOption] = useState('later');
 
   const nextStep = () => setStep(step + 20);
   const prevStep = () => setStep(step - 20);
 
   const progressValue = (step / 100) * 100;
+
+  const {address, createNewDeelId, useGetArweaveHash,} = useDeelProtocol();
 
   const createDeelID = async () => {
     try {
@@ -41,6 +45,8 @@ const DeelIDForm = () => {
       const response = await axios.post('/api/uploadToArweave', data);
 
       console.log(response.data);
+
+      createNewDeelId(address as string);
     } catch (error) {
       console.error('Failed to create Deel ID:', error);
     }
@@ -96,7 +102,7 @@ const DeelIDForm = () => {
             className="mb-4"
           />
           <div className="flex justify-between">
-            <Button onClick={prevStep} variant="outline">
+            <Button onClick={prevStep} >
               <ArrowLeft className="mr-2" /> Back
             </Button>
             <Button onClick={nextStep} >
@@ -173,10 +179,27 @@ const DeelIDForm = () => {
       {step === 100 && (
         <>
           <h2 className="text-2xl font-semibold mb-6">KYC Verification</h2>
-          <KintoConnect />
+          <RadioGroup value={kycOption} onValueChange={setKycOption} className="mb-4">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="now" id="kyc-now" />
+              <Label htmlFor="kyc-now">Do KYC now</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="later" id="kyc-later" />
+              <Label htmlFor="kyc-later">Do KYC later</Label>
+            </div>
+          </RadioGroup>
+          {kycOption === 'now' && <KintoConnect />}
           <div className="flex justify-between mt-4">
-            <Button onClick={prevStep} variant="outline">
+            <Button onClick={prevStep}>
               <ArrowLeft className="mr-2" /> Back
+            </Button>
+            <Button 
+              onClick={createDeelID} 
+              className='bg-emerald-800'
+              disabled={kycOption === 'now'}
+            >
+              Create Deel ID <CheckCircle className="ml-2" />
             </Button>
           </div>
         </>

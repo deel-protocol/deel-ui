@@ -11,6 +11,7 @@ const Main = () => {
     <AuroraBackground>
       <main>
         <div className="flex flex-col items-center justify-center">
+          
           <div className="flex items-center justify-center mb-10 gap-5 mt-16">
             <Button
               onClick={() => router.push("/home")}
