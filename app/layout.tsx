@@ -10,7 +10,7 @@ import { Header } from "@/components/Header"
 import { ToastContainer } from "react-toastify"
 import { cn } from "@/lib/utils"
 import { UserProvider } from "@/hooks/useUserContext"
-import { XMTPProvider } from "@xmtp/react-sdk";
+import { XMTPProvider } from "@xmtp/react-sdk"
 
 const fontSans = FontSans({
   subsets: ["latin"],
