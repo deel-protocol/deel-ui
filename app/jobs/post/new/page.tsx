@@ -33,13 +33,23 @@ export default function Post() {
   const router = useRouter()
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     if (category && description && feeAddress && paymentAddress && pricing) {
-      // Call addNewJob with the form values
-      addNewJob(feeAddress, category, pricing)
-      // Optionally, redirect or show a success message
-      router.push("/jobs") // Redirect after submission
+      try {
+        // Call addNewJob with the form values and await the transaction
+        const tx = await addNewJob(feeAddress, category, pricing)
+        if (tx) {
+          // Wait for transaction confirmation (assuming addNewJob returns a transaction hash)
+          await tx.wait()
+          // Redirect after transaction confirmation
+          router.push("/jobs")
+        }
+      } catch (error) {
+        console.error("Transaction failed:", error)
+        alert("Transaction failed. Please try again.")
+      }
     } else {
       // Handle form validation
       alert("Please fill out all fields.")
@@ -48,7 +58,6 @@ export default function Post() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {" "}
       <h1 className="text-4xl font-bold text-center text-gray-900">
         Post your<span className="text-emerald-600">{" deel."}</span>
       </h1>
@@ -63,9 +72,9 @@ export default function Post() {
           <form onSubmit={handleSubmit}>
             <div className="grid w-full items-center gap-4">
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="framework">Category</Label>
+                <Label htmlFor="category">Category</Label>
                 <Select value={category} onValueChange={setCategory}>
-                  <SelectTrigger id="framework">
+                  <SelectTrigger id="category">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent position="popper">
@@ -83,6 +92,7 @@ export default function Post() {
                 <Input
                   id="description"
                   placeholder="Enter the Job Description"
+                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
@@ -90,15 +100,17 @@ export default function Post() {
                 <Label htmlFor="fee">Gas Fee Address</Label>
                 <Input
                   id="fee"
-                  placeholder="Enter the Address to pay Gas fees "
+                  placeholder="Enter the Address to pay Gas fees"
+                  value={feeAddress}
                   onChange={(e) => setFeeAddress(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="payment">Payment Adress</Label>
+                <Label htmlFor="payment">Payment Address</Label>
                 <Input
                   id="payment"
-                  placeholder="Enter the Address to send the payment from "
+                  placeholder="Enter the Address to send the payment from"
+                  value={paymentAddress}
                   onChange={(e) => setPaymentAddress(e.target.value)}
                 />
               </div>
@@ -107,18 +119,19 @@ export default function Post() {
                 <Input
                   id="pricing"
                   placeholder="Enter the pricing for this job"
+                  value={pricing}
                   onChange={(e) => setPricing(e.target.value)}
                 />
               </div>
             </div>
+            <CardFooter className="flex justify-between mt-4">
+              <Button onClick={() => router.push("/")} variant="outline">
+                Cancel
+              </Button>
+              <Button type="submit">Post</Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button onClick={() => router.push("/")} variant="outline">
-            Cancel
-          </Button>
-          <Button type="submit">Post</Button>
-        </CardFooter>
       </Card>
     </div>
   )
