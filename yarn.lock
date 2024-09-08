@@ -7,6 +7,11 @@
   resolved "https://registry.npmjs.org/@adraffy/ens-normalize/-/ens-normalize-1.10.0.tgz"
   integrity sha512-nA9XHtlAkYfJxY7bce8DcN7eKxWWCWkU+1GR9d+U6MbNpfwQp8TI7vqOsBsMcHoT4mBu2kypKoSKnghEzOOq5Q==
 
+"@adraffy/ens-normalize@1.10.1":
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/@adraffy/ens-normalize/-/ens-normalize-1.10.1.tgz"
+  integrity sha512-96Z2IP3mYmF1Xg2cDm8f1gWGf/HUVedQ3FMifV4kG/PQ4yEP51xDtRAEfhVNt5f/uzpNkZHwWQuUcu6D6K+Ekw==
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
@@ -2871,6 +2876,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-20.6.3.tgz"
   integrity sha512-HksnYH4Ljr4VQgEy2lTStbCKv/P590tmPe5HqOnv9Gprffgv5WXAY+Y5Gqniu0GGqeTCUdBnzC3QSrzPkBkAMA==
 
+"@types/node@18.15.13":
+  version "18.15.13"
+  resolved "https://registry.npmjs.org/@types/node/-/node-18.15.13.tgz"
+  integrity sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==
+
 "@types/prop-types@*":
   version "15.7.12"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.12.tgz"
@@ -3464,7 +3474,7 @@
   dependencies:
     "@xmtp/content-type-primitives" "^1.0.1"
 
-"@xmtp/proto@^3.61.1", "@xmtp/proto@^3.68.0":
+"@xmtp/proto@^3.61.1", "@xmtp/proto@^3.62.1":
   version "3.68.0"
   resolved "https://registry.npmjs.org/@xmtp/proto/-/proto-3.68.0.tgz"
   integrity sha512-jaNY6wy7qphDsgcrqCdQfmiCWYCzir7HY7yhkadoaPe7ja4Brny09xFpGVUUMDih94V6etEJzPed5bgYk2yhlg==
@@ -3527,19 +3537,19 @@
     long "^5.2.3"
     viem "2.7.15"
 
-"@xmtp/xmtp-js@^12.1.0", "@xmtp/xmtp-js@^13.0.0":
-  version "13.0.0"
-  resolved "https://registry.npmjs.org/@xmtp/xmtp-js/-/xmtp-js-13.0.0.tgz"
-  integrity sha512-nDS7GaichYkf15oaWsj6oAVr9gwdwq1ZjMeDK/iX4HdBnK97FDeMVYZCpZhWJE7RsuyO5/qWoh4mheMNTsOCRQ==
+"@xmtp/xmtp-js@^12.1.0":
+  version "12.1.0"
+  resolved "https://registry.npmjs.org/@xmtp/xmtp-js/-/xmtp-js-12.1.0.tgz"
+  integrity sha512-4lekqPYugQaOujxmiplpotkJmU56zKz5Cxx+Zh9aqUeq+C3lPvLtcEKdlDBTWlt0ehfocYZ8R7Q3J6VXMUzE2A==
   dependencies:
     "@noble/secp256k1" "1.7.1"
     "@xmtp/consent-proof-signature" "^0.1.3"
     "@xmtp/content-type-primitives" "^1.0.1"
     "@xmtp/content-type-text" "^1.0.0"
-    "@xmtp/proto" "^3.68.0"
+    "@xmtp/proto" "^3.62.1"
     "@xmtp/user-preferences-bindings-wasm" "^0.3.6"
     async-mutex "^0.5.0"
-    elliptic "^6.5.7"
+    elliptic "^6.5.5"
     long "^5.2.3"
     viem "2.7.15"
 
@@ -3592,6 +3602,11 @@ acorn-jsx@^5.3.2:
   version "8.12.1"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.12.1.tgz"
   integrity sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==
+
+aes-js@4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "https://registry.npmjs.org/aes-js/-/aes-js-4.0.0-beta.5.tgz"
+  integrity sha512-G965FqalsNyrPqgEGON7nIx1e/OVENSgiEIzyC63haUMuvNnwIgIjMs52hlTCKhkBny7A2ORNlfY9Zu+jmGk1Q==
 
 ajv-formats@^2.1.1:
   version "2.1.1"
@@ -4642,11 +4657,12 @@ decode-uri-component@^0.2.2:
     "@types/node" "20.6.3"
     "@types/react" "18.2.22"
     "@types/react-dom" "18.2.7"
+    "@xmtp/content-type-primitives" "^1.0.1"
     "@xmtp/content-type-reaction" "^1.1.9"
     "@xmtp/content-type-remote-attachment" "^1.1.9"
     "@xmtp/content-type-reply" "^1.1.11"
     "@xmtp/react-sdk" "^8.0.1"
-    "@xmtp/xmtp-js" "^13.0.0"
+    "@xmtp/xmtp-js" "^12.1.0"
     autoprefixer "10.4.15"
     axios "^1.7.7"
     class-variance-authority "^0.7.0"
@@ -4654,6 +4670,7 @@ decode-uri-component@^0.2.2:
     deel-ui "file:"
     eslint "8.49.0"
     eslint-config-next "13.5.1"
+    ethers "^6.13.2"
     framer-motion "^11.3.18"
     kinto-web-sdk "^1.0.2"
     lucide-react "^0.416.0"
@@ -4867,7 +4884,7 @@ electron-to-chromium@^1.5.4:
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.13.tgz"
   integrity sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==
 
-elliptic@^6.5.4, elliptic@^6.5.7:
+elliptic@^6.5.4, elliptic@^6.5.5:
   version "6.5.7"
   resolved "https://registry.npmjs.org/elliptic/-/elliptic-6.5.7.tgz"
   integrity sha512-ESVCtTwiA+XhY3wyh24QqRGBoP3rEdDUl3EDUUo9tft074fi19IrdpH7hLCMMP3CIj7jb3W96rn8lt/BqIlt5Q==
@@ -5405,6 +5422,19 @@ ethereum-cryptography@^2.0.0:
     "@noble/hashes" "1.4.0"
     "@scure/bip32" "1.4.0"
     "@scure/bip39" "1.3.0"
+
+ethers@^6.13.2:
+  version "6.13.2"
+  resolved "https://registry.npmjs.org/ethers/-/ethers-6.13.2.tgz"
+  integrity sha512-9VkriTTed+/27BGuY1s0hf441kqwHJ1wtN2edksEtiRvXx+soxRX3iSXTfFqq2+YwrOqbDoTHjIhQnjJRlzKmg==
+  dependencies:
+    "@adraffy/ens-normalize" "1.10.1"
+    "@noble/curves" "1.2.0"
+    "@noble/hashes" "1.3.2"
+    "@types/node" "18.15.13"
+    aes-js "4.0.0-beta.5"
+    tslib "2.4.0"
+    ws "8.17.1"
 
 event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   version "5.0.1"
@@ -9286,6 +9316,11 @@ tslib@1.14.1:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

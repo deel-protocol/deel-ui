@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useClient, useConversations, useSendMessage, useMessages, useStartConversation, CachedConversation, ContentTypeMetadata } from "@xmtp/react-sdk";
-import { createWalletClient, custom, WalletClient } from 'viem';
+import { useClient, useConversations, useSendMessage, useMessages, useStartConversation, CachedConversation, ContentTypeMetadata, Conversation } from "@xmtp/react-sdk";
+import { createWalletClient, custom, WalletClient, Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Send } from "lucide-react";
-import { Address } from 'viem';
+import { Signer } from '@xmtp/react-sdk';
 
 const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
-  const [signer, setSigner] = useState<null | WalletClient>();
+  const [signer, setSigner] = useState(null as WalletClient | Signer | null);
   const [message, setMessage] = useState("");
   const { client, initialize } = useClient();
   const { conversations } = useConversations();
@@ -20,7 +20,7 @@ const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
 
   useEffect(() => {
     const initializeSigner = async () => {
-      const [account] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const [account]: Address[] = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const walletClient = createWalletClient({
         account,
         chain: mainnet,
@@ -37,7 +37,7 @@ const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
         persistConversations: false,
         env: "dev",
       };
-      await initialize({ options, signer });
+      await initialize({ options: { ...options, env: "dev" }, signer });
     }
   }, [initialize, signer]);
 
@@ -45,11 +45,14 @@ const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
     if (client && peerAddress && message) {
       let conversation = conversations.find(c => c.peerAddress === peerAddress) || null;
       if (!conversation) {
-        const newConversation = await startConversation(peerAddress, message);
-        conversation = newConversation.conversation as CachedConversation<ContentTypeMetadata>;
-      }
+        let newConversation = await startConversation(peerAddress, message);
+        let convo  = newConversation.conversation;
+        await sendMessage(convo, message);
+        setMessage("")
+      } else {
       await sendMessage(conversation, message);
       setMessage("");
+      }
     }
   }, [client, peerAddress, message, conversations, startConversation, sendMessage]);
 
