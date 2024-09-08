@@ -17,6 +17,7 @@ const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
   const { sendMessage } = useSendMessage();
   const { startConversation } = useStartConversation();
   const { messages } = useMessages(conversations[0]);
+  
 
   useEffect(() => {
     const initializeSigner = async () => {
@@ -47,7 +48,6 @@ const ChatUI = ({ peerAddress }: {peerAddress : Address}) => {
       if (!conversation) {
         let newConversation = await startConversation(peerAddress, message);
         let convo  = newConversation.conversation;
-        await sendMessage(convo, message);
         setMessage("")
       } else {
       await sendMessage(conversation, message);
